@@ -26,7 +26,7 @@ pub enum Node {
     StrechedOp(bool, String),
     OtherOperator(&'static str),
     SizedParen{ size: &'static str, paren: &'static str },
-    Text(String),
+    Text(String, Variant),
     Matrix(Vec<Node>, ColumnAlign),
     Ampersand,
     NewLine,
@@ -102,7 +102,10 @@ impl fmt::Display for Node {
                 
                 write!(f, "{}", mathml)
             },
-            Node::Text(text) => write!(f, "<mtext>{}</mtext>", text),
+            Node::Text(text, variant) => match variant {
+                Variant::Infer => write!(f, "<mtext>{}</mtext>", text),
+                _              => write!(f, r#"<mtext mathvariant="{}">{}</mtext>"#, text, variant),
+            } 
             Node::Style(display, content) => match display {
                 Some(DisplayStyle::Block)  => write!(f, r#"<mstyle displaystyle="true">{}</mstyle>"#, content),
                 Some(DisplayStyle::Inline) => write!(f, r#"<mstyle displaystyle="false">{}</mstyle>"#, content),

@@ -73,8 +73,10 @@ impl<'a> Lexer<'a> {
     }
 
     /// 次のトークンを生成する.
-    pub(crate) fn next_token(&mut self) -> Token {
-        self.skip_whitespace();
+    pub(crate) fn next_token(&mut self, skip_whitespace: bool) -> Token {
+        if skip_whitespace {
+            self.skip_whitespace();
+        }
 
         let token = match self.cur {
             '=' => Token::Operator('='),
@@ -149,7 +151,7 @@ mod tests {
         for (problem, answer) in problems.iter() {
             let mut lexer = Lexer::new(problem);
             for answer in answer.iter() {
-                assert_eq!(&lexer.next_token(), answer);
+                assert_eq!(&lexer.next_token(true), answer);
             }
         }
     }

@@ -17,6 +17,7 @@ pub enum Variant {
     SansSerifItalic,
     SansSerifBoldItalic,
     Monospace,
+    Infer,
 }
 
 impl fmt::Display for Variant {
@@ -36,6 +37,7 @@ impl fmt::Display for Variant {
             Variant::SansSerifItalic     => write!(f, "sans-serif-italic"),
             Variant::SansSerifBoldItalic => write!(f, "sans-serif-bold-italic"),
             Variant::Monospace           => write!(f, "monospace"),
+            Variant::Infer               => write!(f, ""),
         }
     }
 }

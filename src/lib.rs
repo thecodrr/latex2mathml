@@ -325,6 +325,15 @@ mod tests {
                 r"\begin{pmatrix} x \\ y \end{pmatrix}", 
                 r#"<mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd><mi>x</mi></mtd></mtr><mtr><mtd><mi>y</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow>"#
             ),
+            (r"\text{what a world}", r"<mtext>what a world</mtext>"),
+            (
+                r"\textrm{then either}",
+                r#"<mtext mathvariant="normal">then either</mtext>"#,
+            ),
+            (
+                r"\textsf{what a world}",
+                r#"<mtext mathvariant="sans-serif">what a world</mtext>"#,
+            ),
         ];
 
         for (problem, answer) in problems.iter() {
